@@ -9,61 +9,61 @@ public class App {
         // double result = 0.0d;
         // char opCode = 'd';
 
-        double[] leftVals = {100.0d, 25.0d, 225.0d, 11.0d};
-        double[] rightVals = {50.0d, 92.0d, 17.0d, 3.0d};
-        char[] opCodes = {'a', 's', 'm', 'd'};
+        double[] leftVals = { 100.0d, 25.0d, 225.0d, 11.0d };
+        double[] rightVals = { 50.0d, 92.0d, 17.0d, 3.0d };
+        char[] opCodes = { 'a', 's', 'm', 'd' };
         double[] results = new double[opCodes.length];
 
+        MathEquation[] equations = new MathEquation[4];
+        for (int i = 0; i < opCodes.length; i++) {
+            equations[i] = create(leftVals[i], rightVals[i], opCodes[i]);
+        }
+
         // if (opCode == 'a')
-        //     result = value1 + value2;
+        // result = value1 + value2;
         // else if (opCode == 's')
-        //     result = value1 - value2;
+        // result = value1 - value2;
         // else if (opCode == 'm')
-        //     result = value1 * value2;
+        // result = value1 * value2;
         // else if (opCode == 'd')
-        //     result = value1 / value2;
+        // result = value1 / value2;
         // else {
-        //     System.out.println("Invalid opCode: " + opCode);
-        //     result = 0.0d;
+        // System.out.println("Invalid opCode: " + opCode);
+        // result = 0.0d;
         // }
 
         String s1 = "Java";
         System.out.println(s1.startsWith("J", 1));
 
-        if(args.length == 0) {
-            for(int i = 0; i < opCodes.length; i++) {
-                results[i] = execute(opCodes[i], leftVals[i], rightVals[i]);
+        if (args.length == 0) {
+            // for (int i = 0; i < opCodes.length; i++) {
+            //     results[i] = execute(opCodes[i], leftVals[i], rightVals[i]);
+            // }
+
+            // for (double result : results)
+            //     System.out.println("result: " + result);
+
+            for (MathEquation equation : equations) {
+                equation.execute();
+                System.out.println("result = " + equation.result);
             }
-
-        // switch(opCode) {
-        //     case 'a':
-        //         result = value1 + value2;
-        //         break;
-        //     case 's':
-        //         result = value1 - value2;
-        //         break;
-        //     case 'm':
-        //         result = value1 * value2;
-        //         break;
-        //     case 'd':
-        //         result = value2 != 0 ?value1 / value2 : 0.0d;
-        //         break;
-        //     default:
-        //         System.out.println("Invalid opCode: " + opCode);
-        //         result = 0.0d;
-        // }
-
-        for(double result : results)
-            System.out.println("result: " + result);
-        } else if(args.length == 1 && args[0].equals("interactive"))
+        } else if (args.length == 1 && args[0].equals("interactive"))
             executeInteractively();
-        else if(args.length == 3)
+        else if (args.length == 3)
             handleCommandLine(args);
         else
             System.out.println("Please provide an operation code and 2 numeric values");
 
-        for(int i = 1; i < 100; i *= 2)
+        for (int i = 1; i < 100; i *= 2)
             System.out.println(i);
+    }
+
+    private static MathEquation create(double leftVal, double rightVal, char opCode) {
+        MathEquation equation = new MathEquation();
+        equation.leftVal = leftVal;
+        equation.rightVal = rightVal;
+        equation.opCode = opCode;
+        return equation;
     }
 
     static void executeInteractively() {
@@ -97,11 +97,11 @@ public class App {
     }
 
     private static char symbolFromOpCode(char opCode) {
-        char[] opCodes = {'a', 's', 'm', 'd'};
-        char[] symbols = {'+', '-', '*', '/'};
+        char[] opCodes = { 'a', 's', 'm', 'd' };
+        char[] symbols = { '+', '-', '*', '/' };
         char symbol = ' ';
-        for(int index = 0; index < opCodes.length; index++) {
-            if(opCode == opCodes[index]) {
+        for (int index = 0; index < opCodes.length; index++) {
+            if (opCode == opCodes[index]) {
                 symbol = symbols[index];
                 break;
             }
@@ -120,22 +120,22 @@ public class App {
     static double execute(char opCode, double leftVal, double rightVal) {
         double result;
         switch (opCode) {
-                case 'a':
-                    result = leftVal + rightVal;
-                    break;
-                case 's':
-                    result = leftVal - rightVal;
-                    break;
-                case 'm':
-                    result = leftVal * rightVal;
-                    break;
-                case 'd':
-                    result = leftVal / rightVal;
-                    break;
-                default:
-                    System.out.println("Invalid opCode: " + opCode);
-                    result = 0.0d;
-                    break;
+            case 'a':
+                result = leftVal + rightVal;
+                break;
+            case 's':
+                result = leftVal - rightVal;
+                break;
+            case 'm':
+                result = leftVal * rightVal;
+                break;
+            case 'd':
+                result = leftVal / rightVal;
+                break;
+            default:
+                System.out.println("Invalid opCode: " + opCode);
+                result = 0.0d;
+                break;
         }
         return result;
     }
@@ -147,11 +147,11 @@ public class App {
 
     static double valueFromWord(String word) {
         String[] numberWords = {
-            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+                "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
         };
         double value = 0d;
-        for(int index = 0; index < numberWords.length; index++) {
-            if(word.equals(numberWords[index])) {
+        for (int index = 0; index < numberWords.length; index++) {
+            if (word.equals(numberWords[index])) {
                 value = index;
                 break;
             }
